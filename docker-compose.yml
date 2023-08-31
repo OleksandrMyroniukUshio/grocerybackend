@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  grocerybackend:
+    image: bernk4stel/grocerybackend
+    container_name: backend
+    build:
+      context: ./groceries-api
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    ports:
+      - "5191:5191"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  postgres_db:
+    image: postgres
+    container_name: db_container
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5433:5432
+    networks:
+      - backend
+    volumes:
+     - postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes: 
+  postgres_data: 
+
+networks:
+  backend:
+    driver: bridge
