@@ -5,7 +5,7 @@ services:
     image: bernk4stel/grocerybackend
     container_name: backend
     build:
-      context: ./groceries-api
+      context: .
       dockerfile: Dockerfile
     networks:
       - backend
