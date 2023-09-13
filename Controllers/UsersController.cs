@@ -51,7 +51,7 @@ namespace groceries_api.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Aud, _configuration["Audience"]),
+                    new Claim(JwtRegisteredClaimNames.Aud, _configuration["Jwt:Audience"]),
                     new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"])
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
