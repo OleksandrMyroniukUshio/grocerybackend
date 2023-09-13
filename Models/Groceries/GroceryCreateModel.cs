@@ -1,15 +1,13 @@
-﻿namespace groceries_api.Models
+namespace groceries_api.Models.Groceries
 {
-    public class GroceryDTO
+    public class GroceryCreateModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public bool IsBought { get; set; }
 
-        public GroceryDTO(int id, string name, string type, bool isBought)
+        public GroceryCreateModel(string name, string type, bool isBought)
         {
-            Id = id;
             Name = name;
             Type = type;
             IsBought = isBought;
