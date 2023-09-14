@@ -23,13 +23,20 @@ namespace groceries_api.Controllers
         }
 
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] UserDTO model)
         {
+            if(await _userService.GetUserByUsernameAsync(model.Username) != null)  {
+                return BadRequest(new {message = "Username is already taken"});
+            }
             var user = await _userService.RegisterAsync(model.Username, model.Password);
             return Ok(new { UserId = user.Id });
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromBody] UserDTO model)
         {
             var user = await _userService.AuthenticateAsync(model.Username, model.Password);
