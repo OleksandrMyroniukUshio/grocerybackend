@@ -57,7 +57,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
         ValidateLifetime = true,
 
         ClockSkew = TimeSpan.Zero
@@ -67,10 +67,10 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-//if(app.Environment.IsDevelopment()) {
+if(app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
