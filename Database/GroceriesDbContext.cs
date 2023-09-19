@@ -10,7 +10,6 @@ namespace groceries_api.Database
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLowerCaseNamingConvention();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
