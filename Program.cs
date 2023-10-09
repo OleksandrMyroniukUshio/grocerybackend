@@ -3,6 +3,7 @@ using groceries_api.Services.GroceriesServices;
 using groceries_api.Services.UserServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -13,7 +14,7 @@ builder.WebHost.UseUrls("http://0.0.0.0:5191");
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<GroceriesDbContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IGroceriesListService, GroceriesListService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddEndpointsApiExplorer();
